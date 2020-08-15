@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: headless
+  name: browserless-ingress
+  annotations:
+    nginx.org/websocket-services: "browserless"
+          #nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/proxy-connect-timeout: "86400s"
+    nginx.org/proxy-read-timeout: "86400s"
+    nginx.org/proxy-send-timeout: "86400s"
+
+spec:
+  backend:
+    serviceName: browserless
+    servicePort: 80
+  rules:
+  - host: test.gce.com
+    http:
+      paths:
+      - path: /browserless
+        backend:
+          serviceName: browserless
+          servicePort: 80
+          #- path: /coffee
+          #  backend:
+          #    serviceName: coffee-svc
+          #    servicePort: 80

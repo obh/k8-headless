@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: browserless
+  namespace: headless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: browserless
+  template:
+    metadata:
+      name: browserless
+      labels:
+        app: browserless
+    spec:
+      containers:
+      - name: browserless
+        image: browserless/chrome:1.36.0-chrome-stable
+        env:
+        - name: MAX_QUEUE_LENGTH
+          value: "0"
+        - name: MAX_CONCURRENT_SESSIONS
+          value: "2"
+        - name: PORT
+          value: "3001"
+        - name: QUEUE_ALERT_URL
+          value: "https://f4acc2205265.ngrok.io/post.php"
+        - name: PREBOOT_CHROME
+          value: "true"
+        - name: CONNECTION_TIMEOUT
+          value: "300000"
+          #- name: DEBUG
+          #value: "puppeteer*"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 500m
+            memory: 500Mi
+            #volumeMounts:
+            #        - name: config-volume
+            #mountPath: /etc/browserless
+            #        - name: browserless
+            # mountPath: /browserless
+#volumes:
+#      - name: config-volume
+#        configMap:
+#          name: browserless
+#      - name: browserless
+#        emptyDir: {}
