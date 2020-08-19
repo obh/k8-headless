@@ -1,6 +1,5 @@
 # Setting up NGINX INGRESS in Google Cloud
 
-I recently stumbled upon the following problem statement - "Load balancing an internal service which exposes websockets". 
 This setup helps you create a NGINX load balancer for your service. I created this for load balancing a websocket service. 
 Most of this process is fairly well-documented. However, just for posteriority's sake, I'll just list down the specific steps.
 
